@@ -1,14 +1,16 @@
 package application;
 
 class UsersTestHelper {
-    static String firstName = "Elvis";
-    static String lastName = "Costello";
-    static String userEmail = "x@u.edu";
-    static String userName = "imperialBedroom";
-    static String password = "shrdlu";
+    static final String NOSUCHUSER = "nosuchuser";
+    static final String DOESNTMATTER = "doesntmatter";
+    static final String FIRST_NAME = "Elvis";
+    static final String LAST_NAME = "Costello";
+    static final String USER_EMAIL = "x@u.edu";
+    static final String USER_NAME = "imperialBedroom";
+    static final String USER_PASSWORD = "shrdlu";
 
     static User makeTestUser() {
-        return User.create(firstName, lastName, userEmail, userName, password);
+        return User.create(FIRST_NAME, LAST_NAME, USER_EMAIL, USER_NAME, USER_PASSWORD);
     }
 
     static Users createUsers() {

@@ -15,12 +15,12 @@ public class UserAccountCreationTest {
 
     @Test
     public void testCreateUser() {
-        User foundUser = users.findByUserName(UsersTestHelper.userName);
-        assertEquals(UsersTestHelper.firstName, foundUser.getFirstName());
-        assertEquals(UsersTestHelper.lastName, foundUser.getLastName());
-        assertEquals(UsersTestHelper.userEmail, foundUser.getUserEmail());
-        assertEquals(UsersTestHelper.userName, foundUser.getUserName());
-        assertEquals(UsersTestHelper.password, foundUser.getPassword());
+        User foundUser = users.findByUserName(UsersTestHelper.USER_NAME);
+        assertEquals(UsersTestHelper.FIRST_NAME, foundUser.getFirstName());
+        assertEquals(UsersTestHelper.LAST_NAME, foundUser.getLastName());
+        assertEquals(UsersTestHelper.USER_EMAIL, foundUser.getUserEmail());
+        assertEquals(UsersTestHelper.USER_NAME, foundUser.getUserName());
+        assertEquals(UsersTestHelper.USER_PASSWORD, foundUser.getPassword());
     }
 
     @Test(expected = DuplicateUserException.class)

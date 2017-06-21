@@ -17,15 +17,15 @@ public class UserLoginTest {
 
     @Test
     public void canLoginWithRegisteredUserAndCorrectPassword() {
-        String username = UsersTestHelper.userName;
-        String password = UsersTestHelper.password;
+        String username = UsersTestHelper.USER_NAME;
+        String password = UsersTestHelper.USER_PASSWORD;
         assertTrue(users.login(username, password));
     }
 
     @Test
     public void cannotLoginWithUserNameThatDoesNotExist() {
-        String username = "nosuchuser";
-        String password = "doesntmatter";
+        String username = UsersTestHelper.NOSUCHUSER;
+        String password = UsersTestHelper.DOESNTMATTER;
         assertFalse(users.login(username, password));
     }
 }

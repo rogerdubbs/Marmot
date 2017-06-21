@@ -2,14 +2,12 @@ package application;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 public class UserAccountCreationTest {
-    String firstName = "Elvis";
-    String lastName = "Costello";
-    String userEmail = "x@u.edu";
-    String userName = "imperialBedroom";
-    String password = "shrdlu";
+    private String firstName = "Elvis";
+    private String lastName = "Costello";
+    private String userEmail = "x@u.edu";
+    private String userName = "imperialBedroom";
+    private String password = "shrdlu";
 
     @Test
     public void testCreateUser()

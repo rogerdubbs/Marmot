@@ -16,7 +16,7 @@ class User {
         this.password = password;
     }
 
-    static User register(String firstName, String lastName, String userEmail, String userName, String password) {
+    static User create(String firstName, String lastName, String userEmail, String userName, String password) {
         return new User(firstName, lastName, userEmail, userName, password);
     }
 

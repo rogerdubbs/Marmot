@@ -15,12 +15,15 @@ public class UserAccountCreationTest {
     public void testCreateUser()
     {
         Users users = new Users();
-        User testsubject = User.register(firstName, lastName, userEmail, userName, password);
-        assertEquals(firstName, testsubject.getFirstName());
-        assertEquals(lastName, testsubject.getLastName());
-        assertEquals(userEmail, testsubject.getUserEmail());
-        assertEquals(userName, testsubject.getUserName());
-        assertEquals(password, testsubject.getPassword());
+        User testSubject = User.create(firstName, lastName, userEmail, userName, password);
+        users.register(testSubject);
+        User foundUser = users.findByUserName(userName);
+        assertEquals(testSubject, foundUser);
+        assertEquals(firstName, testSubject.getFirstName());
+        assertEquals(lastName, testSubject.getLastName());
+        assertEquals(userEmail, testSubject.getUserEmail());
+        assertEquals(userName, testSubject.getUserName());
+        assertEquals(password, testSubject.getPassword());
     }
 
 }

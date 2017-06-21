@@ -12,8 +12,7 @@ public class UserAccountCreationTest {
     private String password = "shrdlu";
 
     @Test
-    public void testCreateUser()
-    {
+    public void testCreateUser() {
         Users users = new Users();
         User testSubject = User.create(firstName, lastName, userEmail, userName, password);
         users.register(testSubject);
@@ -24,6 +23,22 @@ public class UserAccountCreationTest {
         assertEquals(userEmail, testSubject.getUserEmail());
         assertEquals(userName, testSubject.getUserName());
         assertEquals(password, testSubject.getPassword());
+    }
+
+    @Test(expected = DuplicateUserException.class)
+    public void cannotCreateAccountWithSameUserName() {
+        Users users = new Users();
+        User testSubject = User.create(firstName, lastName, userEmail, userName, password);
+        users.register(testSubject);
+        users.register(testSubject);
+    }
+
+    @Test
+    public void testNullResultWhenNoUserIsRegistered() {
+        Users users = new Users();
+        User foundUser = users.findByUserName(userName);
+        assertEquals(null, foundUser);
+
     }
 
 }

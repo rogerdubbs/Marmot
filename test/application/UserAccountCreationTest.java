@@ -1,6 +1,5 @@
 package application;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -15,7 +14,7 @@ public class UserAccountCreationTest {
     @Test
     public void testCreateUser()
     {
-        User testsubject = new User (firstName, lastName, userEmail, userName, password);
+        User testsubject = User.register(firstName, lastName, userEmail, userName, password);
         assertEquals(firstName, testsubject.getFirstName());
         assertEquals(lastName, testsubject.getLastName());
         assertEquals(userEmail, testsubject.getUserEmail());

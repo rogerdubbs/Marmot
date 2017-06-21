@@ -7,13 +7,17 @@ class User {
     private final String userName;
     private final String password;
 
-    User(String firstName, String lastName, String userEmail, String userName, String password) {
+    private User(String firstName, String lastName, String userEmail, String userName, String password) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.userEmail = userEmail;
         this.userName = userName;
         this.password = password;
+    }
+
+    static User register(String firstName, String lastName, String userEmail, String userName, String password) {
+        return new User(firstName, lastName, userEmail, userName, password);
     }
 
     String getFirstName() {

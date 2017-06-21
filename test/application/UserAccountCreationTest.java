@@ -14,6 +14,7 @@ public class UserAccountCreationTest {
     @Test
     public void testCreateUser()
     {
+        Users users = new Users();
         User testsubject = User.register(firstName, lastName, userEmail, userName, password);
         assertEquals(firstName, testsubject.getFirstName());
         assertEquals(lastName, testsubject.getLastName());

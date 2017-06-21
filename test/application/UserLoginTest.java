@@ -3,8 +3,7 @@ package application;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class UserLoginTest {
 
@@ -19,20 +18,20 @@ public class UserLoginTest {
     public void canLoginWithRegisteredUserAndCorrectPassword() {
         String username = UsersTestHelper.USER_NAME;
         String password = UsersTestHelper.USER_PASSWORD;
-        assertTrue(users.login(username, password));
+        assertEquals(true, users.login(username, password));
     }
 
     @Test
     public void cannotLoginWithIncorrectPassword() {
         String username = UsersTestHelper.USER_NAME;
         String password = UsersTestHelper.DOESNTMATTER;
-        assertFalse(users.login(username, password));
+        assertEquals(false, users.login(username, password));
     }
 
     @Test
     public void cannotLoginWithUserNameThatDoesNotExist() {
         String username = UsersTestHelper.NOSUCHUSER;
         String password = UsersTestHelper.DOESNTMATTER;
-        assertFalse(users.login(username, password));
+        assertEquals(false, users.login(username, password));
     }
 }

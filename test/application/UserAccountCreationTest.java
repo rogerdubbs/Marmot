@@ -1,5 +1,6 @@
 package application;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -10,12 +11,18 @@ public class UserAccountCreationTest {
     private String userEmail = "x@u.edu";
     private String userName = "imperialBedroom";
     private String password = "shrdlu";
+    private Users users;
+    private User testSubject;
+
+    @Before
+    public void setUp() throws Exception {
+        users = new Users();
+        testSubject = User.create(firstName, lastName, userEmail, userName, password);
+        users.register(testSubject);
+    }
 
     @Test
     public void testCreateUser() {
-        Users users = new Users();
-        User testSubject = User.create(firstName, lastName, userEmail, userName, password);
-        users.register(testSubject);
         User foundUser = users.findByUserName(userName);
         assertEquals(testSubject, foundUser);
         assertEquals(firstName, testSubject.getFirstName());
@@ -27,16 +34,12 @@ public class UserAccountCreationTest {
 
     @Test(expected = DuplicateUserException.class)
     public void cannotCreateAccountWithSameUserName() {
-        Users users = new Users();
-        User testSubject = User.create(firstName, lastName, userEmail, userName, password);
-        users.register(testSubject);
         users.register(testSubject);
     }
 
     @Test
     public void testNullResultWhenNoUserIsRegistered() {
-        Users users = new Users();
-        User foundUser = users.findByUserName(userName);
+        User foundUser = users.findByUserName("notFound");
         assertEquals(null, foundUser);
 
     }

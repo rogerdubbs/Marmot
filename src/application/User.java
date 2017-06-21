@@ -3,24 +3,36 @@ package application;
 class User {
     private String firstName;
     private final String lastName;
-//    private final String userEmail;
-//    private final String userName;
+    private final String userEmail;
+    private String userName;
 //    private final String password;
 
     User(String firstName, String lastName, String userEmail, String userName, String password) {
 
         this.firstName = firstName;
         this.lastName = lastName;
-//        this.userEmail = userEmail;
-//        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userName = userName;
 //        this.password = password;
     }
 
-    public String getFirstName() {
+    String getFirstName() {
         return firstName;
     }
 
-    public String getLastName() {
+    String getLastName() {
         return lastName;
+    }
+
+    String getUserEmail() {
+        return userEmail;
+    }
+
+    String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

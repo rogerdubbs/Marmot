@@ -18,6 +18,8 @@ public class UserAccountCreationTest {
         User testsubject = new User (firstName, lastName, userEmail, userName, password);
         assertEquals(firstName, testsubject.getFirstName());
         assertEquals(lastName, testsubject.getLastName());
+        assertEquals(userEmail, testsubject.getUserEmail());
+        assertEquals(userName, testsubject.getUserName());
     }
 
 }

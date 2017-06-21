@@ -1,10 +1,10 @@
 package application;
 
 class User {
-    private String firstName;
+    private final String firstName;
     private final String lastName;
     private final String userEmail;
-    private String userName;
+    private final String userName;
     private final String password;
 
     User(String firstName, String lastName, String userEmail, String userName, String password) {

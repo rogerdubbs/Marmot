@@ -23,6 +23,13 @@ public class UserLoginTest {
     }
 
     @Test
+    public void cannotLoginWithIncorrectPassword() {
+        String username = UsersTestHelper.USER_NAME;
+        String password = UsersTestHelper.DOESNTMATTER;
+        assertFalse(users.login(username, password));
+    }
+
+    @Test
     public void cannotLoginWithUserNameThatDoesNotExist() {
         String username = UsersTestHelper.NOSUCHUSER;
         String password = UsersTestHelper.DOESNTMATTER;

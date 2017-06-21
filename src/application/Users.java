@@ -1,9 +1,10 @@
 package application;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 class Users {
-    private HashMap<String,User> registeredUsers = new HashMap<>();
+    private HashMap<String, User> registeredUsers = new HashMap<>();
 
     void register(User user) {
         if (findByUserName(user.getUserName()) != null)
@@ -16,6 +17,7 @@ class Users {
     }
 
     boolean login(String username, String password) {
-        return findByUserName(username) != null;
+        User user = findByUserName(username);
+        return user != null && Objects.equals(user.getPassword(), password);
     }
 }

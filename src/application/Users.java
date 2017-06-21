@@ -15,7 +15,7 @@ class Users {
         return registeredUsers.get(userName);
     }
 
-    static boolean login(String username, String password) {
-        return true;
+    boolean login(String username, String password) {
+        return findByUserName(username) != null;
     }
 }

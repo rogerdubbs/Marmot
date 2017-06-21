@@ -5,7 +5,7 @@ class User {
     private final String lastName;
     private final String userEmail;
     private String userName;
-//    private final String password;
+    private final String password;
 
     User(String firstName, String lastName, String userEmail, String userName, String password) {
 
@@ -13,7 +13,7 @@ class User {
         this.lastName = lastName;
         this.userEmail = userEmail;
         this.userName = userName;
-//        this.password = password;
+        this.password = password;
     }
 
     String getFirstName() {
@@ -32,7 +32,7 @@ class User {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    String getPassword() {
+        return password;
     }
 }

@@ -20,6 +20,7 @@ public class UserAccountCreationTest {
         assertEquals(lastName, testsubject.getLastName());
         assertEquals(userEmail, testsubject.getUserEmail());
         assertEquals(userName, testsubject.getUserName());
+        assertEquals(password, testsubject.getPassword());
     }
 
 }

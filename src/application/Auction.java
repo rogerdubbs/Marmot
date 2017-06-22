@@ -29,4 +29,8 @@ class Auction {
     Date getEndTime() {
         return endTime;
     }
+
+    String getItemDescription() {
+        return itemDescription;
+    }
 }

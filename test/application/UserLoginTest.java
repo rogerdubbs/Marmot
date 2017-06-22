@@ -20,7 +20,7 @@ public class UserLoginTest {
         String password = UsersTestHelper.USER_PASSWORD;
         assertEquals(true, users.login(username, password));
         User user = users.findByUserName(username);
-        assertEquals(true, users.isLoggedIn());
+        assertEquals(true, user.isLoggedIn());
     }
 
     @Test

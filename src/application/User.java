@@ -39,4 +39,8 @@ class User {
     String getPassword() {
         return password;
     }
+
+    boolean isLoggedIn() {
+        return true;
+    }
 }

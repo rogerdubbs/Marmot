@@ -58,6 +58,13 @@ public class CreateAuctionTest {
     @Test(expected = NotLoggedInException.class)
     public void cannotcreateAuctionIfNotLoggedIn() {
         Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
+    }
 
+    @Test(expected = IllegalAuctionException.class)
+    public void cannotcreateAuctionIfEndTimeLessThanStartTime() {
+        users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
+        user.setSeller();
+        endTime = new Date(currentTimeMillis);
+        Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
     }
 }

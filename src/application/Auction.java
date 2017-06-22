@@ -51,5 +51,9 @@ class Auction {
         return state;
     }
 
+    void placeBid() {
+        throw new AuctionNotStartedException();
+    }
+
     public enum State {notStarted, active}
 }

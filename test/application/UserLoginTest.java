@@ -33,6 +33,11 @@ public class UserLoginTest {
         assertEquals(false, user.isLoggedIn());
     }
 
+    @Test(expected = RuntimeException.class)
+    public void cannotLogoutAnUnknownUser() {
+        users.logout(UsersTestHelper.NOSUCHUSER);
+    }
+
     @Test
     public void cannotLoginWithIncorrectPassword() {
         String username = UsersTestHelper.USER_NAME;

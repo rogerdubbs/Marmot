@@ -10,6 +10,7 @@ class Auction {
     private final Date endTime;
     private State state = State.notStarted;
     private User highBidder;
+    private double highBid;
 
     Auction(User seller, String itemDescription, double startingPrice, Date startTime, Date endTime) {
         if (!seller.isLoggedIn()) throw new NotLoggedInException();
@@ -60,11 +61,16 @@ class Auction {
             throw new AuctionNotStartedException();
         }
         highBidder = bidder;
+        highBid = bidPrice;
 
     }
 
     User getHighBidder() {
         return highBidder;
+    }
+
+    double getHighBid() {
+        return highBid;
     }
 
     public enum State {notStarted, active}

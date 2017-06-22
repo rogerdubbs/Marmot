@@ -44,11 +44,19 @@ public class AuctionBiddingTest {
     }
 
     @Test
-    public void successfulInitialBid() {
+    public void BidderIsHighBidderIfStartingBidAtStartingPrice() {
         User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
         auction.onStart();
         auction.placeBid(bidder, startingPrice);
         assertEquals(bidder, auction.getHighBidder());
+    }
+
+    @Test
+    public void BidAmountIsStartingPriceIfFirstBidAtStartingPrice() {
+        User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
+        auction.onStart();
+        auction.placeBid(bidder, startingPrice);
+        assertEquals(startingPrice, auction.getHighBid(), 0.001);
     }
 
     // If it is the first bid, >= starting price

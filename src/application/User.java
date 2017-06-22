@@ -48,4 +48,8 @@ class User {
     void login() {
         loggedIn = true;
     }
+
+    void logout() {
+        loggedIn = false;
+    }
 }

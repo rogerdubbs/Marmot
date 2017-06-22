@@ -24,4 +24,8 @@ class Users {
         } else return false;
     }
 
+    void logout(String username) {
+        User user = findByUserName(username);
+        user.logout();
+    }
 }

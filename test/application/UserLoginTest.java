@@ -24,6 +24,16 @@ public class UserLoginTest {
     }
 
     @Test
+    public void canLogoutALoggedinUser() {
+        String username = UsersTestHelper.USER_NAME;
+        String password = UsersTestHelper.USER_PASSWORD;
+        users.login(username, password);
+        users.logout(username);
+        User user = users.findByUserName(username);
+        assertEquals(false, user.isLoggedIn());
+    }
+
+    @Test
     public void cannotLoginWithIncorrectPassword() {
         String username = UsersTestHelper.USER_NAME;
         String password = UsersTestHelper.DOESNTMATTER;

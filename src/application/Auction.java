@@ -8,6 +8,7 @@ class Auction {
     private final double startingPrice;
     private final Date startTime;
     private final Date endTime;
+    private State state;
 
     Auction(User seller, String itemDescription, double startingPrice, Date startTime, Date endTime) {
         if (!seller.isLoggedIn()) throw new NotLoggedInException();
@@ -41,4 +42,14 @@ class Auction {
     double getStartingPrice() {
         return startingPrice;
     }
+
+    void onStart() {
+
+    }
+
+    State getState() {
+        return State.active;
+    }
+
+    public enum State {active}
 }

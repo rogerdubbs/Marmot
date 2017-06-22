@@ -75,4 +75,12 @@ public class CreateAuctionTest {
         startTime = new Date(currentTimeMillis-50);
         new Auction(user, itemDescription, startingPrice, startTime, endTime);
     }
+    @Test
+    public void auctionIsStarted(){
+        users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
+        user.setSeller();
+        Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
+        auction.onStart();
+        assertEquals(Auction.State.active, auction.getState());
+    }
 }

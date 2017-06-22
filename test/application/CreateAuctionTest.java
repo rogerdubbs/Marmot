@@ -67,4 +67,12 @@ public class CreateAuctionTest {
         endTime = new Date(currentTimeMillis);
         Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
     }
+
+    @Test(expected = IllegalAuctionException.class)
+    public void cannotCreateAuctionIfStartTimeLessThanNow() {
+        users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
+        user.setSeller();
+        startTime = new Date(currentTimeMillis-50);
+        Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
+    }
 }

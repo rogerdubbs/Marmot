@@ -13,6 +13,7 @@ class Auction {
         if (!seller.isLoggedIn()) throw new NotLoggedInException();
         if (!seller.isSeller()) throw new NotSellerException();
         if (startTime.after(endTime)) throw new IllegalAuctionException();
+        if (startTime.before(new Date(System.currentTimeMillis()))) throw new IllegalAuctionException();
 
         this.seller = seller;
         this.itemDescription = itemDescription;

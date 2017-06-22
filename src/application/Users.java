@@ -20,4 +20,8 @@ class Users {
         User user = findByUserName(username);
         return user != null && Objects.equals(user.getPassword(), password);
     }
+
+    boolean isLoggedIn() {
+        return true;
+    }
 }

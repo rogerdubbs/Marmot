@@ -29,10 +29,20 @@ public class AuctionBiddingTest {
         auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
     }
 
-
     @Test(expected = AuctionNotStartedException.class)
     public void cannotBidIfAuctionNotStarted() {
         User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
-        auction.placeBid();
+        auction.placeBid(bidder, startingPrice);
     }
+
+    @Test(expected = BidTooLowException.class)
+    public void initialBidRejectedIfBelowStartingPrice() {
+        User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
+        auction.placeBid(bidder, startingPrice-0.01);
+    }
+
+    // If it is the first bid, >= starting price
+    // If it is 2nd+ bid, > current high bid
+    // Bidder has to be logged in
+    // Bidder can't be the seller
 }

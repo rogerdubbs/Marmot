@@ -51,7 +51,10 @@ class Auction {
         return state;
     }
 
-    void placeBid() {
+    void placeBid(User bidder, double bidPrice) {
+        if(bidPrice < startingPrice) {
+            throw new BidTooLowException();
+        }
         throw new AuctionNotStartedException();
     }
 

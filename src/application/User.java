@@ -6,6 +6,7 @@ class User {
     private final String userEmail;
     private final String userName;
     private final String password;
+    private boolean loggedIn;
 
     private User(String firstName, String lastName, String userEmail, String userName, String password) {
 
@@ -41,6 +42,10 @@ class User {
     }
 
     boolean isLoggedIn() {
-        return true;
+        return loggedIn;
+    }
+
+    void login() {
+        loggedIn = true;
     }
 }

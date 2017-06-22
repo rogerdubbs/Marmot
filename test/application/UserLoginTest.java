@@ -28,6 +28,8 @@ public class UserLoginTest {
         String username = UsersTestHelper.USER_NAME;
         String password = UsersTestHelper.DOESNTMATTER;
         assertEquals(false, users.login(username, password));
+        User user = users.findByUserName(username);
+        assertEquals(false, user.isLoggedIn());
     }
 
     @Test

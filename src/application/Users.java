@@ -18,7 +18,10 @@ class Users {
 
     boolean login(String username, String password) {
         User user = findByUserName(username);
-        return user != null && Objects.equals(user.getPassword(), password);
+        if (user != null && Objects.equals(user.getPassword(), password)) {
+            user.login();
+            return true;
+        } else return false;
     }
 
 }

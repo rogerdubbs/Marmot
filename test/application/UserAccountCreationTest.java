@@ -32,7 +32,6 @@ public class UserAccountCreationTest {
     public void testNullResultWhenNoUserIsRegistered() {
         User foundUser = users.findByUserName("notFound");
         assertEquals(null, foundUser);
-
     }
 
 }

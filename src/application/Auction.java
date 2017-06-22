@@ -54,6 +54,9 @@ class Auction {
     }
 
     boolean placeBid(User bidder, double bidPrice) {
+        if (!bidder.isLoggedIn()) {
+            throw new NotLoggedInException();
+        }
         if(bidPrice < startingPrice) {
             throw new BidTooLowException();
         }

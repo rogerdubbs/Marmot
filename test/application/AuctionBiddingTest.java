@@ -9,22 +9,17 @@ import static org.junit.Assert.assertEquals;
 
 public class AuctionBiddingTest {
     private Users users;
-    private String itemDescription;
-    private long currentTimeMillis;
-    private Date startTime;
-    private Date endTime;
-    private User user;
     private double startingPrice;
     private Auction auction;
 
     @Before
     public void setUp() throws Exception {
         users = UsersTestHelper.createUsers();
-        itemDescription = "Best non-car non-software item ever";
-        currentTimeMillis = System.currentTimeMillis();
-        startTime = new Date(currentTimeMillis + 1000000);
-        endTime = new Date(currentTimeMillis + 2000000);
-        user = users.findByUserName(UsersTestHelper.USER_NAME);
+        String itemDescription = "Best non-car non-software item ever";
+        long currentTimeMillis = System.currentTimeMillis();
+        Date startTime = new Date(currentTimeMillis + 1000000);
+        Date endTime = new Date(currentTimeMillis + 2000000);
+        User user = users.findByUserName(UsersTestHelper.USER_NAME);
         startingPrice = 0.99;
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
         user.setSeller();
@@ -37,10 +32,18 @@ public class AuctionBiddingTest {
         auction.placeBid(bidder, startingPrice);
     }
 
+    @Test(expected = NotLoggedInException.class)
+    public void cannotBidIfNotLoggedIn() {
+        User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
+        bidder.logout();
+        auction.onStart();
+        auction.placeBid(bidder, startingPrice);
+    }
+
     @Test(expected = BidTooLowException.class)
     public void initialBidRejectedIfBelowStartingPrice() {
         User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
-        auction.placeBid(bidder, startingPrice-0.01);
+        auction.placeBid(bidder, startingPrice - 0.01);
     }
 
     @Test
@@ -63,10 +66,23 @@ public class AuctionBiddingTest {
     public void lowerBidDoesNotBecomeHighBid() {
         User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
         User bidder2 = users.findByUserName(UsersTestHelper.USER_NAME2);
+        bidder2.login();
         auction.onStart();
         auction.placeBid(bidder, startingPrice + 0.10);
         assertEquals(false, auction.placeBid(bidder2, startingPrice));
         assertEquals(startingPrice + 0.10, auction.getHighBid(), 0.001);
+    }
+
+    @Test
+    public void canOutbidOldHighBid() {
+        User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
+        User bidder2 = users.findByUserName(UsersTestHelper.USER_NAME2);
+        bidder2.login();
+        auction.onStart();
+        auction.placeBid(bidder, startingPrice + 0.10);
+        assertEquals(true, auction.placeBid(bidder2, startingPrice + 0.20));
+        assertEquals(startingPrice + 0.20, auction.getHighBid(), 0.001);
+        assertEquals(bidder2, auction.getHighBidder());
     }
 
     // If it is 2nd+ bid, > current high bid

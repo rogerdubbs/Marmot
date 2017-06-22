@@ -10,7 +10,8 @@ class Auction {
     private final Date endTime;
 
     Auction(User seller, String itemDescription, double startingPrice, Date startTime, Date endTime) {
-        if (!seller.isLoggedIn()) throw new NotSellerException();
+        if (!seller.isLoggedIn()) throw new NotLoggedInException();
+        if (!seller.isSeller()) throw new NotSellerException();
 
         this.seller = seller;
         this.itemDescription = itemDescription;

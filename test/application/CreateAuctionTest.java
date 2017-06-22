@@ -39,6 +39,7 @@ public class CreateAuctionTest {
         // End Time > Start Time
         // Seller cannot bid on their own auction
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
+        user.setSeller();
         Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
         assertEquals(user, auction.getSeller());
         assertEquals(startTime, auction.getStartTime());
@@ -50,6 +51,13 @@ public class CreateAuctionTest {
 
     @Test(expected = NotSellerException.class)
     public void cannotCreateAuctionIfNotSeller() {
+        users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
         Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
+    }
+
+    @Test(expected = NotLoggedInException.class)
+    public void cannotcreateAuctionIfNotLoggedIn() {
+        Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
+
     }
 }

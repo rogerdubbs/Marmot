@@ -25,4 +25,8 @@ class Auction {
     Date getStartTime() {
         return startTime;
     }
+
+    Date getEndTime() {
+        return endTime;
+    }
 }

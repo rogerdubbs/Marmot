@@ -10,15 +10,26 @@ import static org.junit.Assert.assertEquals;
 
 public class CreateAuctionTest {
     private Users users;
+    private String itemDescription;
+    private long currentTimeMillis;
+    private Date startTime;
+    private Date endTime;
+    private User user;
+    private double startingPrice;
 
     @Before
     public void setUp() throws Exception {
         users = UsersTestHelper.createUsers();
+        itemDescription = "Best non-car non-software item ever";
+        currentTimeMillis = System.currentTimeMillis();
+        startTime = new Date(currentTimeMillis + 1000000);
+        endTime = new Date(currentTimeMillis + 2000000);
+        user = users.findByUserName(UsersTestHelper.USER_NAME);
+        startingPrice = 0.99;
     }
 
     @Test
     public void testMakeSeller() {
-        User user = users.findByUserName(UsersTestHelper.USER_NAME);
         user.setSeller();
         assertEquals(true, user.isSeller());
     }
@@ -28,13 +39,7 @@ public class CreateAuctionTest {
         // Start Time > Now.
         // End Time > Start Time
         // Seller cannot bid on their own auction
-        User user = users.findByUserName(UsersTestHelper.USER_NAME);
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
-        String itemDescription = "Best non-car non-software item ever";
-        long currentTimeMillis = System.currentTimeMillis();
-        Date startTime = new Date(currentTimeMillis + 1000000);
-        Date endTime = new Date(currentTimeMillis + 2000000);
-        double startingPrice = 0.99;
         Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
         assertEquals(user, auction.getSeller());
         assertEquals(startTime, auction.getStartTime());
@@ -45,12 +50,6 @@ public class CreateAuctionTest {
     }
     @Test(expected = NotLoggedInException.class)
     public void cannotCreateAuctionIfNotSeller() {
-        User user = users.findByUserName(UsersTestHelper.USER_NAME);
-        String itemDescription = "Best non-car non-software item ever";
-        long currentTimeMillis = System.currentTimeMillis();
-        Date startTime = new Date(currentTimeMillis + 1000000);
-        Date endTime = new Date(currentTimeMillis + 2000000);
-        double startingPrice = 0.99;
         Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
     }
 }

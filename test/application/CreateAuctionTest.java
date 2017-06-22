@@ -40,5 +40,6 @@ public class CreateAuctionTest {
         assertEquals(startTime,auction.getStartTime());
         assertEquals(endTime,auction.getEndTime());
         assertEquals(itemDescription,auction.getItemDescription());
+        assertEquals(startingPrice,auction.getStartingPrice(),0.005);
     }
 }

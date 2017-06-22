@@ -33,4 +33,8 @@ class Auction {
     String getItemDescription() {
         return itemDescription;
     }
+
+    double getStartingPrice() {
+        return startingPrice;
+    }
 }

@@ -7,6 +7,7 @@ class User {
     private final String userName;
     private final String password;
     private boolean loggedIn;
+    private boolean seller;
 
     private User(String firstName, String lastName, String userEmail, String userName, String password) {
 
@@ -51,5 +52,13 @@ class User {
 
     void logout() {
         loggedIn = false;
+    }
+
+    void setSeller() {
+        this.seller = true;
+    }
+
+    boolean isSeller() {
+        return seller;
     }
 }

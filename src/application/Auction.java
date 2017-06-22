@@ -21,4 +21,8 @@ class Auction {
     User getSeller() {
         return seller;
     }
+
+    Date getStartTime() {
+        return startTime;
+    }
 }

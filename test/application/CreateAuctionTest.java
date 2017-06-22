@@ -37,5 +37,6 @@ public class CreateAuctionTest {
         double startingPrice = 0.99;
         Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
         assertEquals(user,auction.getSeller());
+        assertEquals(startTime,auction.getStartTime());
     }
 }

@@ -18,4 +18,9 @@ public class CreateAuctionTest {
         user.setSeller();
         assertEquals(true, user.isSeller());
     }
+
+    @Test
+    public void canCreateAuction() {
+        Auction auction = new Auction();
+    }
 }

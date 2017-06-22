@@ -3,7 +3,6 @@ package application;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.Instant;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -48,7 +47,8 @@ public class CreateAuctionTest {
         assertEquals(startingPrice, auction.getStartingPrice(), 0.005);
 
     }
-    @Test(expected = NotLoggedInException.class)
+
+    @Test(expected = NotSellerException.class)
     public void cannotCreateAuctionIfNotSeller() {
         Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
     }

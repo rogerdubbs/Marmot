@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 public class AuctionBiddingTest {
     private Users users;
     private String itemDescription;
@@ -39,6 +41,14 @@ public class AuctionBiddingTest {
     public void initialBidRejectedIfBelowStartingPrice() {
         User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
         auction.placeBid(bidder, startingPrice-0.01);
+    }
+
+    @Test
+    public void successfulInitialBid() {
+        User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
+        auction.onStart();
+        auction.placeBid(bidder, startingPrice);
+        assertEquals(bidder, auction.getHighBidder());
     }
 
     // If it is the first bid, >= starting price

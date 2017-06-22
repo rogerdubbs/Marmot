@@ -3,11 +3,11 @@ package application;
 import java.util.Date;
 
 class Auction {
-    private User seller;
     private final String itemDescription;
     private final double startingPrice;
     private final Date startTime;
     private final Date endTime;
+    private User seller;
     private State state = State.notStarted;
     private User highBidder;
     private double highBid;
@@ -57,7 +57,10 @@ class Auction {
         if (!bidder.isLoggedIn()) {
             throw new NotLoggedInException();
         }
-        if(bidPrice < startingPrice) {
+        if (bidder == seller) {
+            throw new IllegalBidderException();
+        }
+        if (bidPrice < startingPrice) {
             throw new BidTooLowException();
         }
         if (state != State.active) {

@@ -19,16 +19,24 @@ public class AuctionBiddingTest {
         long currentTimeMillis = System.currentTimeMillis();
         Date startTime = new Date(currentTimeMillis + 1000000);
         Date endTime = new Date(currentTimeMillis + 2000000);
-        User user = users.findByUserName(UsersTestHelper.USER_NAME);
+        User seller = users.findByUserName(UsersTestHelper.USER_NAME_SELLER);
         startingPrice = 0.99;
+        users.login(UsersTestHelper.USER_NAME_SELLER, UsersTestHelper.USER_PASSWORD);
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
-        user.setSeller();
-        auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
+        users.login(UsersTestHelper.USER_NAME2, UsersTestHelper.USER_PASSWORD);
+        auction = new Auction(seller, itemDescription, startingPrice, startTime, endTime);
     }
 
     @Test(expected = AuctionNotStartedException.class)
     public void cannotBidIfAuctionNotStarted() {
         User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
+        auction.placeBid(bidder, startingPrice);
+    }
+
+    @Test(expected = IllegalBidderException.class)
+    public void cannotBidOnOwnAuction() {
+        User bidder = users.findByUserName(UsersTestHelper.USER_NAME_SELLER);
+        auction.onStart();
         auction.placeBid(bidder, startingPrice);
     }
 
@@ -66,7 +74,6 @@ public class AuctionBiddingTest {
     public void lowerBidDoesNotBecomeHighBid() {
         User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
         User bidder2 = users.findByUserName(UsersTestHelper.USER_NAME2);
-        bidder2.login();
         auction.onStart();
         auction.placeBid(bidder, startingPrice + 0.10);
         assertEquals(false, auction.placeBid(bidder2, startingPrice));
@@ -77,15 +84,10 @@ public class AuctionBiddingTest {
     public void canOutbidOldHighBid() {
         User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
         User bidder2 = users.findByUserName(UsersTestHelper.USER_NAME2);
-        bidder2.login();
         auction.onStart();
         auction.placeBid(bidder, startingPrice + 0.10);
         assertEquals(true, auction.placeBid(bidder2, startingPrice + 0.20));
         assertEquals(startingPrice + 0.20, auction.getHighBid(), 0.001);
         assertEquals(bidder2, auction.getHighBidder());
     }
-
-    // If it is 2nd+ bid, > current high bid
-    // Bidder has to be logged in
-    // Bidder can't be the seller
 }

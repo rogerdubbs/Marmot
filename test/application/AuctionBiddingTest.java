@@ -59,7 +59,16 @@ public class AuctionBiddingTest {
         assertEquals(startingPrice, auction.getHighBid(), 0.001);
     }
 
-    // If it is the first bid, >= starting price
+    @Test
+    public void lowerBidDoesNotBecomeHighBid() {
+        User bidder = users.findByUserName(UsersTestHelper.USER_NAME);
+        User bidder2 = users.findByUserName(UsersTestHelper.USER_NAME2);
+        auction.onStart();
+        auction.placeBid(bidder, startingPrice + 0.10);
+        assertEquals(false, auction.placeBid(bidder2, startingPrice));
+        assertEquals(startingPrice + 0.10, auction.getHighBid(), 0.001);
+    }
+
     // If it is 2nd+ bid, > current high bid
     // Bidder has to be logged in
     // Bidder can't be the seller

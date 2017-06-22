@@ -53,16 +53,19 @@ class Auction {
         return state;
     }
 
-    void placeBid(User bidder, double bidPrice) {
+    boolean placeBid(User bidder, double bidPrice) {
         if(bidPrice < startingPrice) {
             throw new BidTooLowException();
         }
         if (state != State.active) {
             throw new AuctionNotStartedException();
         }
-        highBidder = bidder;
-        highBid = bidPrice;
-
+        if (bidPrice > highBid) {
+            highBidder = bidder;
+            highBid = bidPrice;
+            return true;
+        }
+        return false;
     }
 
     User getHighBidder() {

@@ -7,16 +7,20 @@ class UsersTestHelper {
     static final String LAST_NAME = "Costello";
     static final String USER_EMAIL = "x@u.edu";
     static final String USER_NAME = "imperialBedroom";
+    static final String USER_NAME2 = "imperialBedroom2";
     static final String USER_PASSWORD = "shrdlu";
 
     static User makeTestUser() {
         return User.create(FIRST_NAME, LAST_NAME, USER_EMAIL, USER_NAME, USER_PASSWORD);
     }
+    private static User makeTestUser2() {
+        return User.create(FIRST_NAME, LAST_NAME, USER_EMAIL, USER_NAME2, USER_PASSWORD);
+    }
 
     static Users createUsers() {
         Users users = new Users();
-        User testSubject = makeTestUser();
-        users.register(testSubject);
+        users.register(makeTestUser());
+        users.register(makeTestUser2());
         return users;
     }
 }

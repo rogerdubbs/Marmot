@@ -83,7 +83,8 @@ class Auction {
     }
 
     void onClose() {
-        AuctionNotifier notifier = AuctionNotifierFactory.make(this);
+        AuctionNotifierFactory factory = AuctionNotifierFactory.getInstance();
+        AuctionNotifier notifier = factory.make(this);
         notifier.notify(this);
     }
 

@@ -2,8 +2,6 @@ package application;
 
 import java.util.Date;
 
-import static application.Auction.Type.other;
-
 class Auction {
     private final String itemDescription;
     private final double startingPrice;
@@ -97,12 +95,19 @@ class Auction {
     }
 
     double getShippingFee() {
-        return type == other ? 10 : 0;
+        switch (type) {
+            case downloadableSoftware:
+                return 0;
+            case car:
+                return 1000;
+            default:
+                return 10;
+        }
     }
 
     public enum State {notStarted, active}
 
     public enum Type {
-        downloadableSoftware, other
+        downloadableSoftware, car, other
     }
 }

@@ -57,4 +57,14 @@ public class AuctionFeesTest {
         auction.onClose();
         assertEquals(0, auction.getShippingFee(), 0.001);
     }
+
+    @Test
+    public void bigShippingFeeChargedForCar() {
+        auction = new Auction(seller, itemDescription, Auction.Type.car, startingPrice, startTime, endTime);
+        auction.onStart();
+        auction.placeBid(bidder, 100);
+        auction.onClose();
+        assertEquals(1000, auction.getShippingFee(), 0.001);
+
+    }
 }

@@ -1,5 +1,6 @@
 package application;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import services.PostOffice;
@@ -34,6 +35,11 @@ public class CloseAuctionTest {
         seller.logout();  // Seller should not have to be logged in to close an auction.
     }
 
+    @After
+    public void tearDown() throws Exception {
+        PostOffice.getInstance().clear();
+    }
+
     @Test
     public void sellerNotifiedWhenAuctionClosesWithoutBidders() {
         auction.onClose();
@@ -54,5 +60,20 @@ public class CloseAuctionTest {
         assertEquals(allEmailsForSeller, true, PostOffice.getInstance().doesLogContain(seller.getUserEmail(), "Your " +
                 itemDescription +
                 " auction sold to bidder " + bidder.getUserEmail() + " for " + "$2.00."));
+    }
+
+    @Test
+    public void highBidderNotifiedWhenAuctionCloses() {
+        bidder.login();
+        auction.placeBid(bidder, 2.00);
+        bidder.logout();
+
+        auction.onClose();
+        String allEmailsForBuyer = PostOffice.getInstance().findEmail(bidder.getUserEmail(), "");
+        assertEquals(allEmailsForBuyer, true, PostOffice.getInstance().doesLogContain(bidder.getUserEmail(),
+                "Congratulations!  You won an auction for a " +
+                        itemDescription +
+                        " from " + seller.getUserEmail() + " for " + "$2.00."));
+
     }
 }

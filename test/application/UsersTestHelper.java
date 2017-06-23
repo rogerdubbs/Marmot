@@ -16,11 +16,11 @@ class UsersTestHelper {
     }
 
     private static User makeTestUser2() {
-        return User.create(FIRST_NAME, LAST_NAME, USER_EMAIL, USER_NAME2, USER_PASSWORD);
+        return User.create(FIRST_NAME, LAST_NAME, "user2@nowhere.com", USER_NAME2, USER_PASSWORD);
     }
 
     private static User makeSeller() {
-        User user = User.create(FIRST_NAME, LAST_NAME, USER_EMAIL, USER_NAME_SELLER, USER_PASSWORD);
+        User user = User.create(FIRST_NAME, LAST_NAME, "seller@nowhere.com", USER_NAME_SELLER, USER_PASSWORD);
         user.setSeller();
         return user;
     }

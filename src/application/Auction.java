@@ -88,14 +88,13 @@ class Auction {
     }
 
     void onClose() {
-        if (highBid > 0)
+        if (highBid > 0) {
             PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format(sellerNoBidsMessageFormat,
                     itemDescription, getHighBidder().getUserEmail(), highBid));
-        else
+            PostOffice.getInstance().sendEMail(highBidder.getUserEmail(), String.format(buyerSuccessfulAuctionMessageFormat, itemDescription, seller.getUserEmail(), highBid));
+        } else
             PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format(sellerSuccessfulAuctionMessageFormat, itemDescription));
 
-        if (highBidder != null)
-            PostOffice.getInstance().sendEMail(highBidder.getUserEmail(), String.format(buyerSuccessfulAuctionMessageFormat, itemDescription, seller.getUserEmail(), highBid));
 
     }
 

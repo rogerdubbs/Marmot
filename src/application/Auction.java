@@ -9,9 +9,6 @@ class Auction {
     private final double startingPrice;
     private final Date startTime;
     private final Date endTime;
-    private final String sellerNoBidsMessageFormat = "Your %s auction sold to bidder %s for $%.2f.";
-    private final String sellerSuccessfulAuctionMessageFormat = "Sorry, your auction for %s did not have any bidders.";
-    private final String buyerSuccessfulAuctionMessageFormat = "Congratulations!  You won an auction for a %s from %s for $%.2f.";
     private User seller;
     private State state = State.notStarted;
     private User highBidder;
@@ -91,8 +88,9 @@ class Auction {
         if (highBid > 0) {
             AuctionNotifier notifier = new SuccessfulAuctionNotifier();
             notifier.notify(this);
-        } else
-            PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format(sellerSuccessfulAuctionMessageFormat, itemDescription));
+        } else {
+            PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format("Sorry, your auction for %s did not have any bidders.", itemDescription));
+        }
 
 
     }

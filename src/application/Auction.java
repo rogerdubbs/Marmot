@@ -94,16 +94,6 @@ class Auction {
         notifier.notify(this);
         FeeCalculator calculator = FeeCalculatorFactory.make();
         calculator.calculateFees(this);
-        transactionFee = 0.02 * getHighBid();
-        switch (type) {
-            case car:
-                if (highBid > 50000)
-                    luxuryTax = 0.04 * getHighBid();
-                break;
-            case other:
-                shippingFee = 10;
-                break;
-        }
     }
 
     double getTransactionFee() {
@@ -125,6 +115,14 @@ class Auction {
     @SuppressWarnings("SameParameterValue")
     void addShippingFee(double value) {
         shippingFee += value;
+    }
+
+    void addLuxuryTax(double value) {
+        luxuryTax += value;
+    }
+
+    void addTransactionFee(double transactionFee) {
+        this.transactionFee += transactionFee;
     }
 
     public enum State {notStarted, active}

@@ -89,7 +89,7 @@ class Auction {
 
     void onClose() {
         if (highBid > 0) {
-            SuccessfulAuctionNotifier notifier = new SuccessfulAuctionNotifier();
+            AuctionNotifier notifier = new SuccessfulAuctionNotifier();
             notifier.notify(this);
         } else
             PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format(sellerSuccessfulAuctionMessageFormat, itemDescription));

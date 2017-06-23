@@ -13,6 +13,10 @@ class Auction {
     private double highBid;
     private Type type;
 
+    private double transactionFee;
+    private double shippingFee;
+    private double luxuryTax;
+
     Auction(User seller, String itemDescription, Type type, double startingPrice, Date startTime, Date endTime) {
         if (!seller.isLoggedIn()) throw new NotLoggedInException();
         if (!seller.isSeller()) throw new NotSellerException();
@@ -88,27 +92,33 @@ class Auction {
         AuctionNotifierFactory factory = AuctionNotifierFactory.getInstance();
         AuctionNotifier notifier = factory.make(this);
         notifier.notify(this);
+        transactionFee = 0.02 * getHighBid();
+        switch (type) {
+            case downloadableSoftware:
+                shippingFee = 0;
+                break;
+            case car:
+                shippingFee = 1000;
+                break;
+            default:
+                shippingFee = 10;
+                break;
+        }
+        luxuryTax = 0;
+        if (type == Type.car && highBid > 50000)
+            luxuryTax = 0.04 * getHighBid();
     }
 
     double getTransactionFee() {
-        return 0.02 * getHighBid();
+        return transactionFee;
     }
 
     double getShippingFee() {
-        switch (type) {
-            case downloadableSoftware:
-                return 0;
-            case car:
-                return 1000;
-            default:
-                return 10;
-        }
+        return shippingFee;
     }
 
     double getLuxuryTax() {
-        if (type == Type.car && highBid > 50000)
-            return 0.04 * getHighBid();
-        else return 0;
+        return luxuryTax;
     }
 
     public enum State {notStarted, active}

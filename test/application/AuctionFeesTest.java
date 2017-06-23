@@ -32,6 +32,16 @@ public class AuctionFeesTest {
     }
 
     @Test
+    public void noFeesChargedUntilAuctionCloses() {
+        auction = new Auction(seller, itemDescription, Auction.Type.car, startingPrice, startTime, endTime);
+        auction.onStart();
+        auction.placeBid(bidder, 50000.01);
+        assertEquals(0, auction.getTransactionFee(), 0.001);
+        assertEquals(0, auction.getLuxuryTax(), 0.001);
+        assertEquals(0, auction.getShippingFee(), 0.001);
+    }
+
+    @Test
     public void transactionFeeIsCharged() {
         auction = new Auction(seller, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
         auction.onStart();
@@ -71,16 +81,16 @@ public class AuctionFeesTest {
     public void luxuryTaxChargedForExpensiveCars() {
         auction = new Auction(seller, itemDescription, Auction.Type.car, startingPrice, startTime, endTime);
         auction.onStart();
-        auction.placeBid(bidder, 100000);
+        auction.placeBid(bidder, 50000.01);
         auction.onClose();
-        assertEquals(4000, auction.getLuxuryTax(), 0.001);
+        assertEquals(2000, auction.getLuxuryTax(), 0.001);
     }
 
     @Test
     public void noLuxuryTaxChargedIfNotCar() {
         auction = new Auction(seller, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
         auction.onStart();
-        auction.placeBid(bidder, 100000);
+        auction.placeBid(bidder, 50000.01);
         auction.onClose();
         assertEquals(0, auction.getLuxuryTax(), 0.001);
     }

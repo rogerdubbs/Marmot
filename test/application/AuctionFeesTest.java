@@ -84,4 +84,13 @@ public class AuctionFeesTest {
         auction.onClose();
         assertEquals(0, auction.getLuxuryTax(), 0.001);
     }
+
+    @Test
+    public void noLuxuryTaxChargedForCheapCars() {
+        auction = new Auction(seller, itemDescription, Auction.Type.car, startingPrice, startTime, endTime);
+        auction.onStart();
+        auction.placeBid(bidder, 50000);
+        auction.onClose();
+        assertEquals(0, auction.getLuxuryTax(), 0.001);
+    }
 }

@@ -106,7 +106,7 @@ class Auction {
     }
 
     double getLuxuryTax() {
-        if (type == Type.car)
+        if (type == Type.car && highBid > 50000)
             return 0.04 * getHighBid();
         else return 0;
     }

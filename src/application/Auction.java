@@ -1,5 +1,7 @@
 package application;
 
+import services.PostOffice;
+
 import java.util.Date;
 
 class Auction {
@@ -80,6 +82,10 @@ class Auction {
 
     double getHighBid() {
         return highBid;
+    }
+
+    void onClose() {
+        PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format("Sorry, your auction for %s did not have any bidders.", itemDescription));
     }
 
     public enum State {notStarted, active}

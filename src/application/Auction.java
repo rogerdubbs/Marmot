@@ -105,6 +105,10 @@ class Auction {
         }
     }
 
+    double getLuxuryTax() {
+        return 0.04 * getHighBid();
+    }
+
     public enum State {notStarted, active}
 
     public enum Type {

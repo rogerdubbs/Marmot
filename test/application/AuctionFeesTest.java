@@ -65,6 +65,14 @@ public class AuctionFeesTest {
         auction.placeBid(bidder, 100);
         auction.onClose();
         assertEquals(1000, auction.getShippingFee(), 0.001);
+    }
 
+    @Test
+    public void luxuryTaxChargedForExpensiveCars() {
+        auction = new Auction(seller, itemDescription, Auction.Type.car, startingPrice, startTime, endTime);
+        auction.onStart();
+        auction.placeBid(bidder, 100000);
+        auction.onClose();
+        assertEquals(4000, auction.getLuxuryTax(), 0.001);
     }
 }

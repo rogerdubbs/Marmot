@@ -95,8 +95,6 @@ class Auction {
         transactionFee = 0.02 * getHighBid();
         switch (type) {
             case downloadableSoftware:
-                shippingFee = 0;
-                luxuryTax = 0;
                 break;
             case car:
                 shippingFee = 1000;
@@ -105,7 +103,6 @@ class Auction {
                 break;
             default:
                 shippingFee = 10;
-                luxuryTax = 0;
                 break;
         }
     }

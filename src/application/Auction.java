@@ -92,16 +92,15 @@ class Auction {
         AuctionNotifierFactory factory = AuctionNotifierFactory.getInstance();
         AuctionNotifier notifier = factory.make(this);
         notifier.notify(this);
+        FeeCalculator calculator = FeeCalculatorFactory.make();
+        calculator.calculateFees(this);
         transactionFee = 0.02 * getHighBid();
         switch (type) {
-            case downloadableSoftware:
-                break;
             case car:
-                shippingFee = 1000;
                 if (highBid > 50000)
                     luxuryTax = 0.04 * getHighBid();
                 break;
-            default:
+            case other:
                 shippingFee = 10;
                 break;
         }
@@ -117,6 +116,15 @@ class Auction {
 
     double getLuxuryTax() {
         return luxuryTax;
+    }
+
+    Type getType() {
+        return type;
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    void addShippingFee(double value) {
+        shippingFee += value;
     }
 
     public enum State {notStarted, active}

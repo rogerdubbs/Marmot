@@ -96,17 +96,18 @@ class Auction {
         switch (type) {
             case downloadableSoftware:
                 shippingFee = 0;
+                luxuryTax = 0;
                 break;
             case car:
                 shippingFee = 1000;
+                if (highBid > 50000)
+                    luxuryTax = 0.04 * getHighBid();
                 break;
             default:
                 shippingFee = 10;
+                luxuryTax = 0;
                 break;
         }
-        luxuryTax = 0;
-        if (type == Type.car && highBid > 50000)
-            luxuryTax = 0.04 * getHighBid();
     }
 
     double getTransactionFee() {

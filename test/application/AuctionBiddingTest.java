@@ -27,7 +27,7 @@ public class AuctionBiddingTest {
         users.login(UsersTestHelper.USER_NAME_SELLER, UsersTestHelper.USER_PASSWORD);
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
         users.login(UsersTestHelper.USER_NAME2, UsersTestHelper.USER_PASSWORD);
-        auction = new Auction(seller, itemDescription, startingPrice, startTime, endTime);
+        auction = new Auction(seller, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
         bidder = users.findByUserName(UsersTestHelper.USER_NAME);
         bidder2 = users.findByUserName(UsersTestHelper.USER_NAME2);
     }

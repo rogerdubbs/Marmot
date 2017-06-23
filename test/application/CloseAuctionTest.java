@@ -30,7 +30,7 @@ public class CloseAuctionTest {
         endTime = new Date(currentTimeMillis + 20000);
         itemDescription = "Nobody wants this";
         seller.login();
-        auction = new Auction(seller, itemDescription, 0.99, startTime, endTime);
+        auction = new Auction(seller, itemDescription, Auction.Type.other, 0.99, startTime, endTime);
         auction.onStart();
         seller.logout();  // Seller should not have to be logged in to close an auction.
     }

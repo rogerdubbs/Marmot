@@ -2,6 +2,8 @@ package application;
 
 import java.util.Date;
 
+import static application.Auction.Type.other;
+
 class Auction {
     private final String itemDescription;
     private final double startingPrice;
@@ -11,13 +13,15 @@ class Auction {
     private State state = State.notStarted;
     private User highBidder;
     private double highBid;
+    private Type type;
 
-    Auction(User seller, String itemDescription, double startingPrice, Date startTime, Date endTime) {
+    Auction(User seller, String itemDescription, Type type, double startingPrice, Date startTime, Date endTime) {
         if (!seller.isLoggedIn()) throw new NotLoggedInException();
         if (!seller.isSeller()) throw new NotSellerException();
         if (startTime.after(endTime)) throw new IllegalAuctionException();
         if (startTime.before(new Date(System.currentTimeMillis()))) throw new IllegalAuctionException();
 
+        this.type = type;
         this.seller = seller;
         this.itemDescription = itemDescription;
         this.startingPrice = startingPrice;
@@ -93,8 +97,12 @@ class Auction {
     }
 
     double getShippingFee() {
-        return 10;
+        return type == other ? 10 : 0;
     }
 
     public enum State {notStarted, active}
+
+    public enum Type {
+        downloadableSoftware, other
+    }
 }

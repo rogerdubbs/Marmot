@@ -9,7 +9,6 @@ import static org.junit.Assert.assertEquals;
 
 public class AuctionFeesTest {
     private String itemDescription = "Best non-car non-software item ever";
-    private Users users;
     private double startingPrice;
     private Auction auction;
     private User bidder;
@@ -19,7 +18,7 @@ public class AuctionFeesTest {
 
     @Before
     public void setUp() throws Exception {
-        users = UsersTestHelper.createUsers();
+        Users users = UsersTestHelper.createUsers();
         long currentTimeMillis = System.currentTimeMillis();
         startTime = new Date(currentTimeMillis + 1000000);
         endTime = new Date(currentTimeMillis + 2000000);
@@ -34,7 +33,7 @@ public class AuctionFeesTest {
 
     @Test
     public void transactionFeeIsCharged() {
-        auction = new Auction(seller, itemDescription, startingPrice, startTime, endTime);
+        auction = new Auction(seller, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
         auction.onStart();
         auction.placeBid(bidder, 100);
         auction.onClose();
@@ -43,11 +42,19 @@ public class AuctionFeesTest {
 
     @Test
     public void shippingFeeIsCharged() {
-        auction = new Auction(seller, itemDescription, startingPrice, startTime, endTime);
+        auction = new Auction(seller, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
         auction.onStart();
         auction.placeBid(bidder, 100);
         auction.onClose();
         assertEquals(10, auction.getShippingFee(), 0.001);
+    }
 
+    @Test
+    public void noShippingFeeForDownloadableSoftware() {
+        auction = new Auction(seller, itemDescription, Auction.Type.downloadableSoftware, startingPrice, startTime, endTime);
+        auction.onStart();
+        auction.placeBid(bidder, 100);
+        auction.onClose();
+        assertEquals(0, auction.getShippingFee(), 0.001);
     }
 }

@@ -40,7 +40,7 @@ public class CreateAuctionTest {
         // Seller cannot bid on their own auction
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
         user.setSeller();
-        Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
+        Auction auction = new Auction(user, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
         assertEquals(user, auction.getSeller());
         assertEquals(startTime, auction.getStartTime());
         assertEquals(endTime, auction.getEndTime());
@@ -52,12 +52,12 @@ public class CreateAuctionTest {
     @Test(expected = NotSellerException.class)
     public void cannotCreateAuctionIfNotSeller() {
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
-        new Auction(user, itemDescription, startingPrice, startTime, endTime);
+        new Auction(user, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
     }
 
     @Test(expected = NotLoggedInException.class)
     public void cannotcreateAuctionIfNotLoggedIn() {
-        new Auction(user, itemDescription, startingPrice, startTime, endTime);
+        new Auction(user, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
     }
 
     @Test(expected = IllegalAuctionException.class)
@@ -65,7 +65,7 @@ public class CreateAuctionTest {
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
         user.setSeller();
         endTime = new Date(currentTimeMillis);
-        new Auction(user, itemDescription, startingPrice, startTime, endTime);
+        new Auction(user, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
     }
 
     @Test(expected = IllegalAuctionException.class)
@@ -73,14 +73,14 @@ public class CreateAuctionTest {
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
         user.setSeller();
         startTime = new Date(currentTimeMillis - 50);
-        new Auction(user, itemDescription, startingPrice, startTime, endTime);
+        new Auction(user, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
     }
 
     @Test
     public void auctionIsStarted() {
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
         user.setSeller();
-        Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
+        Auction auction = new Auction(user, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
         auction.onStart();
         assertEquals(Auction.State.active, auction.getState());
     }
@@ -89,7 +89,7 @@ public class CreateAuctionTest {
     public void auctionIsNotActiveBeforeWeStart() {
         users.login(UsersTestHelper.USER_NAME, UsersTestHelper.USER_PASSWORD);
         user.setSeller();
-        Auction auction = new Auction(user, itemDescription, startingPrice, startTime, endTime);
+        Auction auction = new Auction(user, itemDescription, Auction.Type.other, startingPrice, startTime, endTime);
         assertEquals(Auction.State.notStarted, auction.getState());
     }
 }

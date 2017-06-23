@@ -88,5 +88,13 @@ class Auction {
         notifier.notify(this);
     }
 
+    double getTransactionFee() {
+        return 0.02 * getHighBid();
+    }
+
+    double getShippingFee() {
+        return 10;
+    }
+
     public enum State {notStarted, active}
 }

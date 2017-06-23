@@ -106,7 +106,9 @@ class Auction {
     }
 
     double getLuxuryTax() {
-        return 0.04 * getHighBid();
+        if (type == Type.car)
+            return 0.04 * getHighBid();
+        else return 0;
     }
 
     public enum State {notStarted, active}

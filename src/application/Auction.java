@@ -85,7 +85,12 @@ class Auction {
     }
 
     void onClose() {
-        PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format("Sorry, your auction for %s did not have any bidders.", itemDescription));
+        if (highBid > 0)
+            PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format("Your %s auction sold to bidder %s for $%.2f.",
+                    itemDescription, getHighBidder().getUserEmail(), highBid));
+        else
+            PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format("Sorry, your auction for %s did not have any bidders.", itemDescription));
+
     }
 
     public enum State {notStarted, active}

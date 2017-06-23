@@ -27,6 +27,7 @@ public class PostOffice {
         _log.add(logString);
     }
 
+    @SuppressWarnings("SameParameterValue")
     public String findEmail(String to, String messageContains) {
         StringBuilder ret = new StringBuilder();
         String log;

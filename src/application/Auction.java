@@ -89,9 +89,8 @@ class Auction {
 
     void onClose() {
         if (highBid > 0) {
-            PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format(sellerNoBidsMessageFormat,
-                    itemDescription, getHighBidder().getUserEmail(), highBid));
-            PostOffice.getInstance().sendEMail(highBidder.getUserEmail(), String.format(buyerSuccessfulAuctionMessageFormat, itemDescription, seller.getUserEmail(), highBid));
+            SuccessfulAuctionNotifier notifier = new SuccessfulAuctionNotifier();
+            notifier.notify(this);
         } else
             PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format(sellerSuccessfulAuctionMessageFormat, itemDescription));
 

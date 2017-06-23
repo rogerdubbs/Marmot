@@ -1,7 +1,5 @@
 package application;
 
-import services.PostOffice;
-
 import java.util.Date;
 
 class Auction {
@@ -89,7 +87,8 @@ class Auction {
             AuctionNotifier notifier = new SuccessfulAuctionNotifier();
             notifier.notify(this);
         } else {
-            PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format("Sorry, your auction for %s did not have any bidders.", itemDescription));
+            AuctionNotifier notifier = new FailedAuctionNotifier();
+            notifier.notify(this);
         }
 
 

@@ -83,15 +83,8 @@ class Auction {
     }
 
     void onClose() {
-        if (highBid > 0) {
-            AuctionNotifier notifier = new SuccessfulAuctionNotifier();
-            notifier.notify(this);
-        } else {
-            AuctionNotifier notifier = new FailedAuctionNotifier();
-            notifier.notify(this);
-        }
-
-
+        AuctionNotifier notifier = AuctionNotifierFactory.make(this);
+        notifier.notify(this);
     }
 
     public enum State {notStarted, active}

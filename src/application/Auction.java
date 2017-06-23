@@ -9,6 +9,8 @@ class Auction {
     private final double startingPrice;
     private final Date startTime;
     private final Date endTime;
+    private final String sellerNoBidsMessageFormat = "Your %s auction sold to bidder %s for $%.2f.";
+    private final String sellerSuccessfulAuctionMessageFormat = "Sorry, your auction for %s did not have any bidders.";
     private User seller;
     private State state = State.notStarted;
     private User highBidder;
@@ -86,10 +88,10 @@ class Auction {
 
     void onClose() {
         if (highBid > 0)
-            PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format("Your %s auction sold to bidder %s for $%.2f.",
+            PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format(sellerNoBidsMessageFormat,
                     itemDescription, getHighBidder().getUserEmail(), highBid));
         else
-            PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format("Sorry, your auction for %s did not have any bidders.", itemDescription));
+            PostOffice.getInstance().sendEMail(seller.getUserEmail(), String.format(sellerSuccessfulAuctionMessageFormat, itemDescription));
 
     }
 
